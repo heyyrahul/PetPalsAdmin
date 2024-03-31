@@ -15,7 +15,7 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://rich-gray-lovebird-tux.cyclic.app/users/register", {
+      const response = await fetch("https://excited-cod-beret.cyclic.app/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

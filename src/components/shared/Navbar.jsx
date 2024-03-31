@@ -24,7 +24,7 @@ export default function Navbar() {
     useEffect(() => {
       const fetchPendingApplications = async () => {
         try {
-          const response = await axios.get('https://rich-gray-lovebird-tux.cyclic.app/application');
+          const response = await axios.get('https://excited-cod-beret.cyclic.app/application');
           const pendingApps = response.data.application.filter(app => app.status === 'Applied').length;
           setPendingApplications(pendingApps);
         } catch (error) {

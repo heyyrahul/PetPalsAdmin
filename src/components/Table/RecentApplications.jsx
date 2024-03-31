@@ -11,7 +11,7 @@ const RecentApplications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get('https://rich-gray-lovebird-tux.cyclic.app/application');
+        const response = await axios.get('https://excited-cod-beret.cyclic.app/application');
         const filteredApplications = response.data.application.filter(app => app.status === 'Applied');
         setApplications(filteredApplications);
         setLoading(false);
@@ -26,7 +26,7 @@ const RecentApplications = () => {
   const handleStatusChange = async (id, status) => {
     console.log('Clicked button:', id, status); // Debugging statement
     try {
-      const response = await axios.patch(`https://rich-gray-lovebird-tux.cyclic.app/application/update/${id}`, { status });
+      const response = await axios.patch(`https://excited-cod-beret.cyclic.app/application/update/${id}`, { status });
       if (response.status === 200) {
         // Assuming the patch request is successful, remove the application from the list
         setApplications(applications.filter(app => app._id !== id));
@@ -43,7 +43,7 @@ const RecentApplications = () => {
 
   const handleViewPet = async (petId) => {
     try {
-      const response = await axios.get(`https://rich-gray-lovebird-tux.cyclic.app/pet/${petId}`);
+      const response = await axios.get(`https://excited-cod-beret.cyclic.app//pet/${petId}`);
       setSelectedPet(response.data.pet);
       // Display pet data in a modals or any other UI component
       console.log('Selected pet:', response.data.pet);

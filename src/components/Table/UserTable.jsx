@@ -12,7 +12,7 @@ const UserTable = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
-    axios.get("https://rich-gray-lovebird-tux.cyclic.app/users")
+    axios.get("https://excited-cod-beret.cyclic.app/users")
       .then(response => {
         setUsers(response.data.user);
       })
@@ -27,7 +27,7 @@ const UserTable = () => {
   };
 
   const confirmDelete = () => {
-    axios.delete(`https://rich-gray-lovebird-tux.cyclic.app/users/${selectedUserId}`)
+    axios.delete(`https://excited-cod-beret.cyclic.app/users/${selectedUserId}`)
       .then(() => {
         setShowDeleteModal(false);
         const updatedUsers = users.filter(user => user._id !== selectedUserId);

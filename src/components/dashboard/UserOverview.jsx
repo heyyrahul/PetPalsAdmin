@@ -9,7 +9,7 @@ const UserOverview = () => {
     const [totalFosters] = useState(0); // Total Pet Parent
 
     useEffect(() => {
-        fetch("https://rich-gray-lovebird-tux.cyclic.app/pet")
+        fetch("https://excited-cod-beret.cyclic.app/pet")
             .then(response => response.json())
             .then(data => {
                 const pets = data.pets;
