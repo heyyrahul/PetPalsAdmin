@@ -3,7 +3,7 @@ import { GiDogHouse } from 'react-icons/gi';
 import { FaHeart } from 'react-icons/fa';
 import { HiEmojiHappy } from 'react-icons/hi';
 
-const OrderOverview = () => {
+const UserOverview = () => {
     const [totalPets, setTotalPets] = useState(0);
     const [totalAdopted, setTotalAdopted] = useState(0);
     const [totalFosters] = useState(0); // Total Pet Parent
@@ -45,4 +45,4 @@ const OrderOverview = () => {
     );
 };
 
-export default OrderOverview;
+export default UserOverview;
