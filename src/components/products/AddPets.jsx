@@ -3,6 +3,7 @@ import Input from "../lib/Input";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import URL from "../../../API";
 
 const AddPets = () => {
   const [pets, setPets] = useState([]);
@@ -18,7 +19,7 @@ const AddPets = () => {
   }, []);
 
   const fetchPets = () => {
-    fetch("https://excited-cod-beret.cyclic.app/pet")
+    fetch(`${URL}/pet`)
       .then((response) => response.json())
       .then((data) => setPets(data.pets))
       .catch((error) => console.error("Error fetching pet data:", error));
@@ -53,7 +54,7 @@ const AddPets = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`https://excited-cod-beret.cyclic.app/pet/${selectedPet._id}`, selectedPet);
+      await axios.patch(`${URL}/pet/${selectedPet._id}`, selectedPet);
       fetchPets(); 
       toast.success("Pet updated successfully");
       setSelectedPet(null); 
@@ -69,7 +70,7 @@ const AddPets = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://excited-cod-beret.cyclic.app/pet/${id}`);
+      await axios.delete(`${URL}/pet/${id}`);
       const updatedPets = pets.filter((pet) => pet._id !== id);
       setPets(updatedPets);
       toast.success("Pet deleted successfully");

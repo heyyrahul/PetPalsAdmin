@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GiDogHouse } from 'react-icons/gi';
 import { FaHeart } from 'react-icons/fa';
 import { HiEmojiHappy } from 'react-icons/hi';
+import URL from '../../../API.js';
 
 const UserOverview = () => {
     const [totalPets, setTotalPets] = useState(0);
@@ -11,7 +12,7 @@ const UserOverview = () => {
     useEffect(() => {
         const fetchPets = async () => {
             try {
-                const response = await fetch("https://excited-cod-beret.cyclic.app/pet");
+                const response = await fetch(`${URL}/pet`);
                 const data = await response.json();
                 const pets = data.pets;
                 const total = pets.length;
@@ -26,7 +27,7 @@ const UserOverview = () => {
 
         const fetchApplications = async () => {
             try {
-                const response = await fetch("https://excited-cod-beret.cyclic.app/application");
+                const response = await fetch(`${URL}/application`);
                 const data = await response.json();
                 const applications = data.application;
                 const acceptedApplications = applications.filter(app => app.status === "Accepted");

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import URL from "../../../API";
 
 const UserTable = () => {
   const [users, setUsers] = useState([]);
@@ -12,7 +13,7 @@ const UserTable = () => {
   const [editedUser, setEditedUser] = useState(null);
 
   useEffect(() => {
-    axios.get("https://excited-cod-beret.cyclic.app/users")
+    axios.get(`${URL}/users`)
       .then(response => {
         setUsers(response.data.user);
       })
@@ -27,7 +28,7 @@ const UserTable = () => {
   };
 
   const confirmDelete = () => {
-    axios.delete(`https://excited-cod-beret.cyclic.app/users/${selectedUserId}`)
+    axios.delete(`${URL}/users/${selectedUserId}`)
       .then(() => {
         setShowDeleteModal(false);
         const updatedUsers = users.filter(user => user._id !== selectedUserId);
@@ -57,7 +58,7 @@ const UserTable = () => {
   };
 
   const updateUser = () => {
-    axios.patch(`https://excited-cod-beret.cyclic.app/users/${editedUser._id}`, editedUser)
+    axios.patch(`${URL}/users/${editedUser._id}`, editedUser)
       .then(() => {
         // Update the user in the local state
         const updatedUsers = users.map(user => {

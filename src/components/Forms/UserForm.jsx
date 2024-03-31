@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import Input from "../lib/Input";
+import URL from "../../../API";
 
 const UserForm = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -15,7 +16,7 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://excited-cod-beret.cyclic.app/users/register", {
+      const response = await fetch(`${URL}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

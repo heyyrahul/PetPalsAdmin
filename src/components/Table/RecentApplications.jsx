@@ -2,17 +2,18 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import URL from '../../../API';
 
 const RecentApplications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPet, setSelectedPet] = useState(null); 
-  const [modalOpen, setModalOpen] = useState(false); // State to manage modal visibility
+  const [modalOpen, setModalOpen] = useState(false); 
 
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get('https://excited-cod-beret.cyclic.app/application');
+        const response = await axios.get(`${URL}/application`);
         const filteredApplications = response.data.application.filter(app => app.status === 'Applied');
         setApplications(filteredApplications);
         setLoading(false);
@@ -25,11 +26,10 @@ const RecentApplications = () => {
   }, []);
 
   const handleStatusChange = async (id, status) => {
-    console.log('Clicked button:', id, status); // Debugging statement
+    console.log('Clicked button:', id, status); 
     try {
-      const response = await axios.patch(`https://excited-cod-beret.cyclic.app/application/update/${id}`, { status });
+      const response = await axios.patch(`${URL}/application/update/${id}`, { status });
       if (response.status === 200) {
-        // Assuming the patch request is successful, remove the application from the list
         setApplications(applications.filter(app => app._id !== id));
         if (status === 'Accept') {
           toast.success('Application has been approved');
@@ -44,9 +44,9 @@ const RecentApplications = () => {
 
   const handleViewPet = async (petId) => {
     try {
-      const response = await axios.get(`https://excited-cod-beret.cyclic.app/pet/${petId}`);
-      setSelectedPet(response.data.pets[0]); // Assuming the response contains only one pet
-      setModalOpen(true); // Open the modal
+      const response = await axios.get(`${URL}/pet/${petId}`);
+      setSelectedPet(response.data.pets[0]);
+      setModalOpen(true); 
     } catch (error) {
       console.error('Error fetching pet data:', error);
     }

@@ -12,6 +12,7 @@ import { RxTextAlignLeft, RxChevronLeft } from 'react-icons/rx';
 import MobileSideBar from "./MobileSideBar";
 import { BiLogOut } from 'react-icons/bi'; 
 import axios from 'axios';
+import URL from "../../../API";
 export default function Navbar() {
 
   const [showSidebar,setShowSidebar] = useState(false);
@@ -24,7 +25,7 @@ export default function Navbar() {
     useEffect(() => {
       const fetchPendingApplications = async () => {
         try {
-          const response = await axios.get('https://excited-cod-beret.cyclic.app/application');
+          const response = await axios.get(`${URL}/application`);
           const pendingApps = response.data.application.filter(app => app.status === 'Applied').length;
           setPendingApplications(pendingApps);
         } catch (error) {

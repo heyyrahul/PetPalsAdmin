@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import Input from "../lib/Input";
+import URL from "../../../API";
 
 const PetForm = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -18,7 +19,7 @@ const PetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://excited-cod-beret.cyclic.app/pet", {
+      const response = await fetch(`${URL}/pet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
