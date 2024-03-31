@@ -10,7 +10,7 @@ const AddPets = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterColor, setFilterColor] = useState("");
-  const [selectedPet, setSelectedPet] = useState(null); // To store the pet selected for editing
+  const [selectedPet, setSelectedPet] = useState(null); 
   const petsPerPage = 8;
 
   useEffect(() => {
@@ -54,9 +54,9 @@ const AddPets = () => {
   const handleUpdate = async () => {
     try {
       await axios.patch(`https://excited-cod-beret.cyclic.app/pet/${selectedPet._id}`, selectedPet);
-      fetchPets(); // Fetch updated pets
+      fetchPets(); 
       toast.success("Pet updated successfully");
-      setSelectedPet(null); // Close edit panel after updating
+      setSelectedPet(null); 
     } catch (error) {
       console.error("Error updating pet:", error);
       toast.error("Error updating pet");

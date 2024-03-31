@@ -6,20 +6,40 @@ import { HiEmojiHappy } from 'react-icons/hi';
 const UserOverview = () => {
     const [totalPets, setTotalPets] = useState(0);
     const [totalAdopted, setTotalAdopted] = useState(0);
-    const [totalFosters] = useState(0); // Total Pet Parent
+    const [totalFosters, setTotalFosters] = useState(0);
 
     useEffect(() => {
-        fetch("https://excited-cod-beret.cyclic.app/pet")
-            .then(response => response.json())
-            .then(data => {
+        const fetchPets = async () => {
+            try {
+                const response = await fetch("https://excited-cod-beret.cyclic.app/pet");
+                const data = await response.json();
                 const pets = data.pets;
                 const total = pets.length;
                 const adopted = pets.filter(pet => pet.isAdopted).length;
 
                 setTotalPets(total);
                 setTotalAdopted(adopted);
-            })
-            .catch(error => console.error("Error fetching pet data:", error));
+            } catch (error) {
+                console.error("Error fetching pet data:", error);
+            }
+        };
+
+        const fetchApplications = async () => {
+            try {
+                const response = await fetch("https://excited-cod-beret.cyclic.app/application");
+                const data = await response.json();
+                const applications = data.application;
+                const acceptedApplications = applications.filter(app => app.status === "Accepted");
+                const totalFosters = new Set(acceptedApplications.map(app => app.userId)).size;
+
+                setTotalFosters(totalFosters);
+            } catch (error) {
+                console.error("Error fetching application data:", error);
+            }
+        };
+
+        fetchPets();
+        fetchApplications();
     }, []);
 
     return (
