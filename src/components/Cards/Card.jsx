@@ -13,7 +13,7 @@ export const Card = () => {
                 <header className="flex items-center justify-between leading-tight p-2 md:p-4">
                     <h1 className="text-lg">
                         <a className="no-underline hover:underline text-black" href="#">
-                            Article Title
+                            Article Titl
                         </a>
                     </h1>
                     <p className="text-grey-darker text-sm">
