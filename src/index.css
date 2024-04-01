@@ -6,7 +6,7 @@
   @apply w-full bg-gray-200/50  p-3 outline-none focus:bg-transparent border rounded;
 }
 
-/* Custom scrollbar styles */
+/* Custom scrollbar style */
 ::-webkit-scrollbar {
   width: 6px; /* Width of the scrollbar */
 }
