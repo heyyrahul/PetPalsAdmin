@@ -116,10 +116,10 @@ const UserTable = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.age}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.role}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button onClick={() => handleEdit(user._id)} className="text-indigo-600 hover:text-indigo-900 mr-2" style={{backgroundColor:"gray",borderRadius:"5px",width:"3rem"}}>
+                        <button onClick={() => handleEdit(user._id)} className="text-indigo-600 hover:text-indigo-900 mr-2" style={{backgroundColor:"gray",borderRadius:"5px",width:"4rem",height:"2rem"}}>
                           Edit
                         </button>
-                        <button onClick={() => handleDelete(user._id)} className="text-red-600 hover:text-red-900" style={{backgroundColor:"#FF5C5C",borderRadius:"5px",width:"3rem"}}>
+                        <button onClick={() => handleDelete(user._id)} className="text-red-600 hover:text-red-900" style={{backgroundColor:"#FF5C5C",borderRadius:"5px",width:"4rem",height:"2rem"}}>
                           Delete
                         </button>
                       </td>

@@ -11,6 +11,7 @@ const AddPets = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterColor, setFilterColor] = useState("");
+  const [adoptionStatus, setAdoptionStatus] = useState("All");
   const [selectedPet, setSelectedPet] = useState(null); 
   const petsPerPage = 8;
 
@@ -31,6 +32,8 @@ const AddPets = () => {
     if (filterType && filterType !== "All" && pet.type !== filterType) return false;
     if (filterColor && filterColor !== "All" && pet.color !== filterColor) return false;
     if (searchTerm && !pet.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+    if (adoptionStatus === "Adopted" && !pet.isAdopted) return false;
+    if (adoptionStatus === "Not Adopted" && pet.isAdopted) return false;
     return true;
   });
   const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
@@ -49,6 +52,11 @@ const AddPets = () => {
 
   const handleColorFilterChange = (e) => {
     setFilterColor(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleAdoptionStatusChange = (e) => {
+    setAdoptionStatus(e.target.value);
     setCurrentPage(1);
   };
 
@@ -92,41 +100,43 @@ const AddPets = () => {
               label="Name"
               value={selectedPet.name}
               onChange={(e) => setSelectedPet({ ...selectedPet, name: e.target.value })}
-              style={{ color: "black" ,backgroundColor:"#A1A5A3",marginBottom:"5px",borderRadius:"5px" }}
+              style={{ color: "black",marginBottom:"5px",borderRadius:"5px",borderColor:"gray",borderWidth:"2px"}}
             />
             <Input
               type="text"
               label="Type"
               value={selectedPet.type}
-              style={{ color: "black" ,backgroundColor:"#A1A5A3",margin:"5px 0px" ,borderRadius:"5px"}}
+              style={{ color: "black",marginBottom:"5px",borderRadius:"5px",borderColor:"gray",borderWidth:"2px"}}
               onChange={(e) => setSelectedPet({ ...selectedPet, type: e.target.value })}
             />
             <Input
               type="text"
               label="Color"
               value={selectedPet.color}
-              style={{ color: "black" ,backgroundColor:"#A1A5A3",margin:"5px 0px",borderRadius:"5px" }}
+              style={{ color: "black",marginBottom:"5px",borderRadius:"5px",borderColor:"gray",borderWidth:"2px"}}
               onChange={(e) => setSelectedPet({ ...selectedPet, color: e.target.value })}
             />
             <Input
               type="text"
               label="Description"
               value={selectedPet.description}
-              style={{ color: "black" ,backgroundColor:"#A1A5A3" ,margin:"5px 0px",borderRadius:"5px"}}
+              style={{  color: "black",marginBottom:"5px",borderRadius:"5px",borderColor:"gray",borderWidth:"2px"}}
               onChange={(e) => setSelectedPet({ ...selectedPet, description: e.target.value })}
             />
             <Input
+              placeholder="Enter pet gender"
               type="text"
               label="Gender"
               value={selectedPet.gender}
-              style={{ color: "black" ,backgroundColor:"#A1A5A3",margin:"5px 0px",borderRadius:"5px" }}
+              style={{  color: "black",marginBottom:"5px",borderRadius:"5px",borderColor:"gray",borderWidth:"2px"}}
               onChange={(e) => setSelectedPet({ ...selectedPet, gender: e.target.value })}
             />
             <Input
+              placeholder="Enter pet age"
               type="number"
               label="Age"
               value={selectedPet.age}
-              style={{ color: "black" ,backgroundColor:"#A1A5A3" ,marginTop:"5px",borderRadius:"5px"}}
+              style={{  color: "black",marginBottom:"5px",borderRadius:"5px",borderColor:"gray",borderWidth:"2px"}}
               onChange={(e) => setSelectedPet({ ...selectedPet, age: e.target.value })}
             />
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4" onClick={handleUpdate} style={{ backgroundColor: "black" }}>
@@ -140,6 +150,7 @@ const AddPets = () => {
       )}
 
       <div className="bg-gray py-8 px-5 rounded-md shadow-custom_secondary grid lg:grid-cols-4 gap-8">
+        {/* Filters */}
         <div>
           <Input
             className="input_styles"
@@ -150,7 +161,7 @@ const AddPets = () => {
           />
         </div>
         <div>
-          <select
+          <select 
             className="input_styles relative appearance-none focus:outline-none focus:border-blue-500 "
             name="Type"
             id="Type"
@@ -162,7 +173,7 @@ const AddPets = () => {
             <option value="cat">Cat</option>
           </select>
         </div>
-        <div>
+        <div >
           <select
             className="input_styles relative appearance-none focus:outline-none focus:border-blue-500"
             name="Color"
@@ -177,10 +188,27 @@ const AddPets = () => {
             <option value="gray">Gray</option>
             <option value="cream">Cream</option>
             <option value="red">Red</option>
-            {/* Add more color options as needed */}
+            <option value="black and tan">Black & Tan</option>
+            <option value="fawn">Fawn</option>
+            <option value="orange">Orange</option>
+            <option value="black and white">Black & White</option>
+
           </select>
         </div>
-        <br />
+        <div>
+          <select
+            className="input_styles relative appearance-none focus:outline-none focus:border-blue-500"
+            name="AdoptionStatus"
+            id="AdoptionStatus"
+            value={adoptionStatus}
+            onChange={handleAdoptionStatusChange}
+          >
+            <option value="All">All Adoption Status</option>
+            <option value="Adopted">Adopted</option>
+            <option value="Not Adopted">Not Adopted</option>
+          </select>
+        </div>
+        {/* Display pets */}
         {currentPets.map((pet) => (
           <div key={pet._id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <img className="w-full h-64 object-cover" src={pet.url} alt={pet.name} />
@@ -192,11 +220,11 @@ const AddPets = () => {
               <p className="text-gray-600 mb-2"><strong>Age:</strong> {pet.age}</p>
               <p className="text-gray-600 mb-2"><strong>Description:</strong> {pet.description}</p>
               <div className="flex justify-between">
-                <button onClick={() => handleEdit(pet)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ backgroundColor: "gray" }}>
+                <button onClick={() => handleEdit(pet)} className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded" style={{ backgroundColor: "#ACE2E1" }}>
                   Edit
                 </button>
                 <button onClick={() => handleDelete(pet._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" style={{ backgroundColor: "#A0153E" }}>
-                  Delete
+                  Delete 
                 </button>
               </div>
             </div>

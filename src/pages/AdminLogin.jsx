@@ -7,24 +7,24 @@ const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // useNavigate hook
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(`${URL}/users/login`, {
         method: 'POST',
-        headers: {
+        headers: { 
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, pass: password })
       });
       const data = await response.json();
-      if (response.ok) {
-        // Login successful
+      if (response.ok) {  
         localStorage.setItem('token', data.token);
         console.log(data);
-        navigate('/dashboard'); // Use navigate function instead of history.push
+        console.log({email, password});
+        navigate('/dashboard'); 
       } else {
         setError(data.msg || 'An error occurred');
       }

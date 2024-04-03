@@ -1,17 +1,35 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
+import ReactDOM from "react-dom/client"; 
+import { Navigate, BrowserRouter as Router } from "react-router-dom";
+import { AuthProvider, useAuth } from "./middleware/AuthContext"; 
 import "./index.css";
-import router from "./routes";
 import { Suspense } from "react";
 import ThemeSuspense from "./components/theme/ThemeSuspense";
+import routes from "./routes/index";
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Suspense fallback={<ThemeSuspense />}>
-      <RouterProvider router={router} />
+const Main = () => {
+  const { isLoggedIn } = useAuth(); 
 
-    </Suspense>
-  </React.StrictMode>
+  return (
+    <React.StrictMode>
+      <Suspense fallback={<ThemeSuspense />}>
+        <Router>
+          {isLoggedIn ? (
+          
+            <>{routes}</>
+          ) : (
+            <Navigate to="/adminlogin"/>
+          )}
+        </Router>
+      </Suspense>
+    </React.StrictMode>
+  );
+};
+
+root.render(
+  <AuthProvider>
+    <Main />
+  </AuthProvider>
 );
