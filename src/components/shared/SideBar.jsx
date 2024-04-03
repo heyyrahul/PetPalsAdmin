@@ -8,6 +8,10 @@ import CustomLink from "../../hooks/CustomLink";
 import { Link } from 'react-router-dom';
 
 const SideBar = ({ handleCloseSidebar }) => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  }
   return (
     <div className="fixed w-64 h-full " style={{backgroundColor:"white"}}>
       <div className=" mt-6 mb-14 pl-12">
@@ -40,7 +44,7 @@ const SideBar = ({ handleCloseSidebar }) => {
         </CustomLink>
     
         <CustomLink onClick={handleCloseSidebar} to="#">
-  <button className="flex items-center gap-2" >
+  <button className="flex items-center gap-2" onClick={handleLogout} >
     <BiLogOut /> 
     <span style={{ color: "#31363F" }}>SignOut</span>
    
