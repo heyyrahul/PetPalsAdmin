@@ -35,8 +35,8 @@ const AdminLogin = () => {
   };
 
   return (
-    <div id='adminloginparent'>
-      <div className="admin-login-container">
+    <div id='adminloginparent' >
+      <div className="admin-login-container" style={{backgroundColor:"#F7EEDD" ,boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"}}>
         <h2><strong>Admin Login</strong></h2>
         <form onSubmit={handleSubmit} className="admin-login-form">
           <div>
@@ -47,7 +47,7 @@ const AdminLogin = () => {
             <label htmlFor="password">Password</label> <br />
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="admin-login-input" placeholder='Enter your password' />
           </div>
-          <button type="submit" className="admin-login-button">Login</button>
+          <button type="submit" className="admin-login-button" >Login</button>
           {error && <p className="admin-login-error">{error}</p>}
         </form>
       </div>

@@ -13,7 +13,12 @@ const RecentApplications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get(`${URL}/application`);
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const response = await axios.get(`${URL}/application`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass token in the Authorization header
+          },
+        });
         const filteredApplications = response.data.application.filter(app => app.status === 'Applied');
         setApplications(filteredApplications);
         setLoading(false);
@@ -28,7 +33,12 @@ const RecentApplications = () => {
   const handleStatusChange = async (id, status) => {
     console.log('Clicked button:', id, status); 
     try {
-      const response = await axios.patch(`${URL}/application/update/${id}`, { status });
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
+      const response = await axios.patch(`${URL}/application/update/${id}`, { status }, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Pass token in the Authorization header
+        },
+      });
       if (response.status === 200) {
         setApplications(applications.filter(app => app._id !== id));
         if (status === 'Accept') {
@@ -44,7 +54,12 @@ const RecentApplications = () => {
 
   const handleViewPet = async (petId) => {
     try {
-      const response = await axios.get(`${URL}/pet/${petId}`);
+      const token = localStorage.getItem('token'); 
+      const response = await axios.get(`${URL}/pet/${petId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
       setSelectedPet(response.data.pets[0]);
       setModalOpen(true); 
     } catch (error) {

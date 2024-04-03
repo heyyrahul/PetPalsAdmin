@@ -62,7 +62,11 @@ const AddPets = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`${URL}/pet/${selectedPet._id}`, selectedPet);
+      await axios.patch(`${URL}/pet/${selectedPet._id}`, selectedPet, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
+        }
+      });
       fetchPets(); 
       toast.success("Pet updated successfully");
       setSelectedPet(null); 
@@ -71,14 +75,17 @@ const AddPets = () => {
       toast.error("Error updating pet");
     }
   };
-
   const handleEdit = (pet) => {
     setSelectedPet(pet);
   };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${URL}/pet/${id}`);
+      await axios.delete(`${URL}/pet/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
+        }
+      });
       const updatedPets = pets.filter((pet) => pet._id !== id);
       setPets(updatedPets);
       toast.success("Pet deleted successfully");

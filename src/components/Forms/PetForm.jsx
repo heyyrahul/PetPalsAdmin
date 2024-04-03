@@ -19,10 +19,12 @@ const PetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token"); 
       const response = await fetch(`${URL}/pet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
         },
         body: JSON.stringify(formData),
       });
@@ -166,7 +168,7 @@ const PetForm = () => {
             </label>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#A0153E", color: "white",borderRadius: "5px", width: "8%"}}>
+        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#A0153E", color: "white",borderRadius: "5px", width: "8%" }}>
           Add Pet
         </button>
       </form>

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const SideBar = ({ handleCloseSidebar }) => {
     const handleLogout = () => {
-      localStorage.removeItem("token");
+      localStorage.removeItem('token');
       window.location.reload();
     }
   return (
@@ -44,9 +44,9 @@ const SideBar = ({ handleCloseSidebar }) => {
         </CustomLink>
     
         <CustomLink onClick={handleCloseSidebar} to="#">
-  <button className="flex items-center gap-2"  onClick={handleLogout}>
+  <button className="flex items-center gap-2" onClick={ handleLogout} >
     <BiLogOut /> 
-    <span style={{ color: "#31363F" }}>SignOut</span>
+    <span style={{ color: "#31363F" }} >SignOut</span>
    
   </button>
 </CustomLink>

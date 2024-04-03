@@ -13,13 +13,20 @@ const UserTable = () => {
   const [editedUser, setEditedUser] = useState(null);
 
   useEffect(() => {
-    axios.get(`${URL}/users`)
-      .then(response => {
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const response = await axios.get(`${URL}/users`, {
+          headers: {
+            Authorization: `Bearer ${token}` // Include token in the headers
+          }
+        });
         setUsers(response.data.user);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching users:', error);
-      });
+      }
+    };
+    fetchUsers();
   }, []);
 
   const handleDelete = (userId) => {
@@ -28,7 +35,11 @@ const UserTable = () => {
   };
 
   const confirmDelete = () => {
-    axios.delete(`${URL}/users/${selectedUserId}`)
+    axios.delete(`${URL}/users/${selectedUserId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
+      }
+    })
       .then(() => {
         setShowDeleteModal(false);
         const updatedUsers = users.filter(user => user._id !== selectedUserId);
@@ -57,25 +68,30 @@ const UserTable = () => {
     setEditedUser(null);
   };
 
-  const updateUser = () => {
-    axios.patch(`${URL}/users/${editedUser._id}`, editedUser)
-      .then(() => {
-        // Update the user in the local state
-        const updatedUsers = users.map(user => {
-          if (user._id === editedUser._id) {
-            return editedUser;
-          }
-          return user;
-        });
-        setUsers(updatedUsers);
-        setShowEditModal(false);
-        setEditedUser(null);
-        toast.success("User details updated successfully.");
-      })
-      .catch(error => {
-        console.error('Error updating user:', error);
+ 
+const updateUser = () => {
+  axios.patch(`${URL}/users/${editedUser._id}`, editedUser, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
+    }
+  })
+    .then(() => {
+      // Update the user in the local state
+      const updatedUsers = users.map(user => {
+        if (user._id === editedUser._id) {
+          return editedUser;
+        }
+        return user;
       });
-  };
+      setUsers(updatedUsers);
+      setShowEditModal(false);
+      setEditedUser(null);
+      toast.success("User details updated successfully.");
+    })
+    .catch(error => {
+      console.error('Error updating user:', error);
+    });
+};
 
   return (
     <div>

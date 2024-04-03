@@ -22,19 +22,36 @@ export default function Navbar() {
     };
 
 
+
+
+    // Function to get the token from localStorage
+    const getToken = () => {
+      return localStorage.getItem('token');
+    };
+    
+    // Axios instance with default headers including the token
+    const axiosInstance = axios.create({
+      baseURL: `${URL}/application`, // Adjust baseURL if needed
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getToken()}`
+      }
+    });
+    
     useEffect(() => {
       const fetchPendingApplications = async () => {
         try {
-          const response = await axios.get(`${URL}/application`);
+          const response = await axiosInstance.get('/');
           const pendingApps = response.data.application.filter(app => app.status === 'Applied').length;
           setPendingApplications(pendingApps);
         } catch (error) {
           console.error('Error fetching pending applications:', error);
         }
       };
-  
+    
       fetchPendingApplications();
     }, []);
+    
   return (
     <div className='fixed w-full bg-white h-16 flex justify-between lg:justify-end items-center transition-all duration-[400ms] lg:pl-56'>
       <div className="pl-4 lg:hidden">
