@@ -6,11 +6,9 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if user is authenticated, e.g., by checking localStorage
     const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token); // Set isLoggedIn based on the presence of token
-  }, []); // Empty dependency array to run the effect only once
-
+    setIsLoggedIn(!token); 
+  }, []); 
   const login = () => {
     setIsLoggedIn(true);
   };
