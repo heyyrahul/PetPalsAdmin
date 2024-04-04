@@ -23,7 +23,7 @@ const AdminLogin = () => {
       if (response.ok) {  
         localStorage.setItem('token', data.token);
         console.log(data);
-        console.log({email, password});
+        // console.log({email, password});
         navigate('/dashboard'); 
       } else {
         setError(data.msg || 'An error occurred');

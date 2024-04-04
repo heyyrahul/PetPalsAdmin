@@ -12,7 +12,12 @@ const UserOverview = () => {
     useEffect(() => {
         const fetchPets = async () => {
             try {
-                const response = await fetch(`${URL}/pet`);
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${URL}/pet`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 const data = await response.json();
                 const pets = data.pets;
                 const total = pets.length;
@@ -27,7 +32,12 @@ const UserOverview = () => {
 
         const fetchApplications = async () => {
             try {
-                const response = await fetch(`${URL}/application`);
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${URL}/application`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 const data = await response.json();
                 const applications = data.application;
                 const acceptedApplications = applications.filter(app => app.status === "Accepted");
