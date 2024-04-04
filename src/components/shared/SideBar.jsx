@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const SideBar = ({ handleCloseSidebar }) => {
     const handleLogout = () => {
       localStorage.removeItem('token');
-      window.location.href = '/adminlogin';
+      window.location.href = '/';
     }
   return (
     <div className="fixed w-64 h-full " style={{backgroundColor:"white"}}>
