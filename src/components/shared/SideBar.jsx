@@ -8,9 +8,11 @@ import CustomLink from "../../hooks/CustomLink";
 import { Link } from 'react-router-dom';
 
 const SideBar = ({ handleCloseSidebar }) => {
+
     const handleLogout = () => {
       localStorage.removeItem('token');
       window.location.href = '/';
+  
     }
   return (
     <div className="fixed w-64 h-full " style={{backgroundColor:"white"}}>

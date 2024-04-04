@@ -22,8 +22,13 @@ const AdminLogin = () => {
       const data = await response.json();
       if (response.ok) {  
         localStorage.setItem('token', data.token);
+        localStorage.setItem('email', email);
         console.log(data);
         // console.log({email, password});
+        const email2 = localStorage.getItem('email');
+    if (email2) {
+        console.log(email2);
+    }
         navigate('/dashboard'); 
       } else {
         setError(data.msg || 'An error occurred');

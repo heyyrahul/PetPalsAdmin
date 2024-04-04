@@ -15,87 +15,86 @@ import axios from 'axios';
 import URL from "../../../API";
 export default function Navbar() {
 
-  const [showSidebar,setShowSidebar] = useState(false);
-    const [pendingApplications, setPendingApplications] = useState(0);
-    const handleCloseSidebar = () => {
-      setShowSidebar(false);
-    };
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [pendingApplications, setPendingApplications] = useState(0);
+  const handleCloseSidebar = () => {
+    setShowSidebar(false);
+  };
 
 
 
 
-    // Function to get the token from localStorage
-    const getToken = () => {
-      return localStorage.getItem('token');
-    };
+  // Function to get the token from localStorage
+  const getToken = () => {
+    return localStorage.getItem('token');
+  };
     
-    // Axios instance with default headers including the token
-    const axiosInstance = axios.create({
-      baseURL: `${URL}/application`, // Adjust baseURL if needed
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getToken()}`
+  const axiosInstance = axios.create({
+    baseURL: `${URL}/application`, 
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`
+    }
+  });
+    
+  useEffect(() => {
+    const fetchPendingApplications = async () => {
+      try {
+        const response = await axiosInstance.get('/');
+        const pendingApps = response.data.application.filter(app => app.status === 'Applied').length;
+        setPendingApplications(pendingApps);
+      } catch (error) {
+        console.error('Error fetching pending applications:', error);
       }
-    });
+    };
     
-    useEffect(() => {
-      const fetchPendingApplications = async () => {
-        try {
-          const response = await axiosInstance.get('/');
-          const pendingApps = response.data.application.filter(app => app.status === 'Applied').length;
-          setPendingApplications(pendingApps);
-        } catch (error) {
-          console.error('Error fetching pending applications:', error);
-        }
-      };
-    
-      fetchPendingApplications();
-    }, []);
+    fetchPendingApplications();
+  }, []);
     
   return (
     <div className='fixed w-full bg-white h-16 flex justify-between lg:justify-end items-center transition-all duration-[400ms] lg:pl-56'>
       <div className="pl-4 lg:hidden">
-      <RxTextAlignLeft
-        className="h-8 w-8 text-gray-700 cursor-pointer"
-        onClick={() => setShowSidebar(true)}
-      />
+        <RxTextAlignLeft
+          className="h-8 w-8 text-gray-700 cursor-pointer"
+          onClick={() => setShowSidebar(true)}
+        />
       </div>
 
       <div className="flex items-center pr-4">
-      <Popover className="relative">
-      <Popover.Button className="outline-none mr-5 md:mr-8 cursor-pointer text-gray-700 relative">
-  <BellIcon className="h-6 w-6" />
-  {pendingApplications > 0 && (
-    <span className="absolute -top-1 -right-1 bg-red-500 text-red rounded-full w-3 h-4 flex justify-center items-center text-xs font-bold">
-      {pendingApplications}
-    </span>
-  )}
-</Popover.Button>
+        <Popover className="relative">
+          <Popover.Button className="outline-none mr-5 md:mr-8 cursor-pointer text-gray-700 relative">
+            <BellIcon className="h-6 w-6" />
+            {pendingApplications > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-red rounded-full w-3 h-4 flex justify-center items-center text-xs font-bold">
+                {pendingApplications}
+              </span>
+            )}
+          </Popover.Button>
 
-    <Transition
-      as={Fragment}
-      enter="transition ease-out duration-100"
-      enterFrom="transform scale-95"
-      enterTo="transform scale-100"
-      leave="transition ease-in duration=75"
-      leaveFrom="transform scale-100"
-      leaveTo="transform scale-95"
-    >
-      <Popover.Panel className="absolute -right-16 sm:right-4 z-50 mt-2 bg-white shadow-custom rounded max-w-xs sm:max-w-sm w-screen">
-        <div className="relative p-3">
-          <div className="flex justify-between items-center w-full">
-            <p className="text-gray-700 font-medium">Notifications</p>
-            <a className="text-sm text-orange-500" to=' /' >
-              Mark all as read
-            </a>
-          </div>
-          <div className="mt-4 grid gap-4 grid-cols-1 overflow-hidden">
-            {/* Notification items */}
-          </div>
-        </div>
-      </Popover.Panel>
-    </Transition>
-  </Popover>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform scale-95"
+            enterTo="transform scale-100"
+            leave="transition ease-in duration=75"
+            leaveFrom="transform scale-100"
+            leaveTo="transform scale-95"
+          >
+            <Popover.Panel className="absolute -right-16 sm:right-4 z-50 mt-2 bg-white shadow-custom rounded max-w-xs sm:max-w-sm w-screen">
+              <div className="relative p-3">
+                <div className="flex justify-between items-center w-full">
+                  <p className="text-gray-700 font-medium">Notifications</p>
+                  <a className="text-sm text-orange-500" to=' /' >
+                    Mark all as read
+                  </a>
+                </div>
+                <div className="mt-4 grid gap-4 grid-cols-1 overflow-hidden">
+                  {/* Notification items */}
+                </div>
+              </div>
+            </Popover.Panel>
+          </Transition>
+        </Popover>
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className="inline-flex w-full justify-center items-center">
@@ -125,7 +124,7 @@ export default function Navbar() {
               <div className="p-1">
                 <Menu.Item>
                   <Link
-                    to='/' 
+                    to='/'
                     className="flex hover:bg-secondary-400 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <PencilIcon className="h-4 w-4 mr-2" />
@@ -134,7 +133,7 @@ export default function Navbar() {
                 </Menu.Item>
                 <Menu.Item>
                   <Link
-                    to='/' 
+                    to='/'
                     className="flex hover:bg-secondary-400 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <Cog8ToothIcon className="h-4 w-4 mr-2" />
@@ -143,10 +142,10 @@ export default function Navbar() {
                 </Menu.Item>
                 <Menu.Item>
                   <Link
-                    to='/' 
+                    to='/'
                     className="flex hover:bg-secondary-400 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
-                      <BiLogOut className="h-4 w-4 mr-2"  />
+                    <BiLogOut className="h-4 w-4 mr-2" />
                     Signout
                   </Link>
                 </Menu.Item>
@@ -155,8 +154,7 @@ export default function Navbar() {
           </Transition>
         </Menu>
       </div>
-      <MobileSideBar handleCloseSidebar={handleCloseSidebar} visible={showSidebar}/>
+      <MobileSideBar handleCloseSidebar={handleCloseSidebar} visible={showSidebar} />
     </div>
   );
 }
- 
