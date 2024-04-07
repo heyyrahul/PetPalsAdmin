@@ -1,43 +1,212 @@
-export const Card = () => {
-    return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <article className="overflow-hidden rounded-lg bg-white shadow-custom">
+// sample login page design
 
-                <a href="#">
-                    <img
-                        alt="Placeholder"
-                        className="block h-auto w-full"
-                        src="https://picsum.photos/600/400/?random"/>
-                </a>
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import URL from '../../API';
 
-                <header className="flex items-center justify-between leading-tight p-2 md:p-4">
-                    <h1 className="text-lg">
-                        <a className="no-underline hover:underline text-black" href="#">
-                            Article Titl
-                        </a>
-                    </h1>
-                    <p className="text-grey-darker text-sm">
-                        11/1/19
-                    </p>
-                </header>
+// const AdminLogin = () => {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const navigate = useNavigate();
 
-                <footer className="flex items-center justify-between leading-none p-2 md:p-4">
-                    <a className="flex items-center no-underline hover:underline text-black" href="#">
-                        <img
-                            alt="Placeholder"
-                            className="block rounded-full"
-                            src="https://picsum.photos/32/32/?random"/>
-                        <p className="ml-2 text-sm">
-                            Author Name
-                        </p>
-                    </a>
-                    <a className="no-underline text-grey-darker hover:text-red-dark" href="#">
-                        <span className="hidden">Like</span>
-                        <i className="fa fa-heart"></i>
-                    </a>
-                </footer>
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch(`${URL}/users/login`, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ email, pass: password }),
+//       });
+//       const responseData = await response.json();
+//       if (response.ok) {
+//         localStorage.setItem('token', responseData.token);
+//         localStorage.setItem('email', email);
+//         toast.success('Login Successful!');
+//         setTimeout(() => {
+//           navigate('/dashboard');
+//         }, 1000);
+//       } else {
+//         toast.error(responseData.msg || 'An error occurred');
+//       }
+//     } catch (error) {
+//       console.error('Error logging in:', error);
+//       toast.error('An error occurred');
+//     }
+//   };
 
-            </article>
-        </div>
-    );
-};
+//   return (
+//     <>
+//       <div className="flex flex-col items-center h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('/adminlogin2.jpg')` }}>
+//         <div className="mt-32 w-80 bg-white bg-opacity-50 rounded-md shadow-md p-8">
+//           <h2 className="text-black font-bold text-2xl mb-4">Admin Login</h2>
+//           <form onSubmit={handleSubmit} className="flex flex-col items-center">
+//             <img src="/petpals.png" alt="Logo" className="w-32 mb-4" />
+//             <input
+//               type="email"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//               placeholder="Email"
+              
+//               className="w-full p-2 border-b border-gray-400 focus:outline-none focus:border-blue-500 mb-4"
+//             />
+//             <input
+//               type="password"
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//               placeholder="Password"
+//               className="w-full p-2 border-b border-gray-400 focus:outline-none focus:border-blue-500 mb-4"
+//             />
+//             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+//               Login
+//             </button>
+//           </form>
+//         </div>
+//       </div>
+//       <ToastContainer position="bottom-right" autoClose={1000} />
+//     </>
+//   );
+// };
+
+// export default AdminLogin;
+
+
+// //------------------------------------------------------------------------------------------------------
+
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { makeStyles } from '@material-ui/core/styles';
+// import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
+// import Paper from '@material-ui/core/Paper';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import URL from '../../API';
+
+// const useStyles = makeStyles((theme) => ({
+//   formContainer: {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignItems: 'center', 
+//     height: '100vh',
+//     backgroundImage: 'url("/adminlogin2.jpg")',
+//     backgroundPosition: 'center', 
+//     backgroundSize: 'cover',
+//     backgroundRepeat: 'no-repeat',
+//     zIndex: -1,
+//     justifyContent: 'right',
+//   },
+//   form: {
+//     marginTop: theme.spacing(11),
+//     width: 350,
+//     padding: theme.spacing(4),
+//     textAlign: 'center',
+//     borderRadius: theme.spacing(2),
+//     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)', // Initial boxShadow
+//     transition: 'box-shadow 0.3s ease-in-out', // Add transition for smooth effect
+//     '&:hover': {
+//       boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19)', // Updated boxShadow on hover
+//     },
+//     backdropFilter: 'blur(8px)', // Add blur effect to the background
+//     backgroundColor: 'rgba(255, 255, 255, 0.5)', // Set transparent background with alpha value
+//     zIndex: 100,
+//   },
+//   logo: {
+//     width: '30%', // Adjust the width as needed
+//     marginBottom: theme.spacing(2),
+//     height: 'auto',
+//     display: 'block',
+//     margin: '0 auto',
+//     zIndex: 100,
+//   },
+//   input: {
+//     marginBottom: theme.spacing(2),
+//   },
+//   button: {
+//     marginTop: theme.spacing(2),
+//     padding: theme.spacing(1.5, 3),
+//     backgroundColor: '#007bff',
+//     color: '#fff',
+//     '&:hover': {
+//       backgroundColor: '#0056b3',
+//     },
+//   },
+//   error: {
+//     color: 'red',
+//     marginTop: theme.spacing(2),
+//   },
+// }));
+
+// const AdminLogin = () => {
+//   const classes = useStyles();
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const navigate = useNavigate();
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch(`${URL}/users/login`, {
+//         method: 'POST',
+//         headers: { 
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ email, pass: password })
+//       }); 
+//       const responseData = await response.json(); 
+//       if (response.ok) {  
+//         localStorage.setItem('token', responseData.token);
+//         localStorage.setItem('email', email);
+//         toast.success('Login Successful!');
+//         setTimeout(() => {
+//           navigate('/dashboard'); 
+//         },1000)
+//       } else {
+//         toast.error(responseData.msg || 'An error occurred');
+//       }
+//     } catch (error) {
+//       console.error('Error logging in:', error);
+//       toast.error('An error occurred');
+//     }
+//   };
+
+//   return (
+//     <>
+//       <Paper className={classes.formContainer} elevation={3}>
+//         <div className={classes.form}>
+//           <h2 style={{ color: 'black', fontWeight: 'bold', fontFamily: 'Arial', fontSize: '25px' }}>Admin Login</h2>
+//           <form onSubmit={handleSubmit}>
+//             <img src="/petpals.png" alt="Logo" className={classes.logo} />
+//             <TextField
+//               type="email"
+//               id="email"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//               label="Email"
+//               variant="outlined"
+//               className={classes.input}
+//               fullWidth
+//             />
+//             <TextField
+//               type="password"
+//               id="password"
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//               label="Password"
+//               variant="outlined"
+//               className={classes.input}
+//               fullWidth
+//             />
+//             <Button type="submit" variant="contained" className={classes.button}>
+//               Login
+//             </Button>
+//           </form>
+//         </div>
+//       </Paper>
+//       <ToastContainer position="bottom-right" autoClose={1000} />
+//     </>
+//   );
+// };
+
+// export default AdminLogin;

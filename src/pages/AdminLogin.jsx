@@ -38,25 +38,32 @@ const AdminLogin = () => {
     <>
       <div className="flex flex-col items-center h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('/adminlogin2.jpg')` }}>
         <div className="mt-32 w-80 bg-white bg-opacity-50 rounded-md shadow-md p-8">
-          <h2 className="text-black font-bold text-2xl mb-4">Admin Login</h2>
+          <h2 className="text-black font-bold text-2xl " style={{textAlign: 'center'}}>Admin Login</h2>
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
-            <img src="/petpals.png" alt="Logo" className="w-32 mb-4" />
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              
-              className="w-full p-2 border-b border-gray-400 focus:outline-none focus:border-blue-500 mb-4"
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full p-2 border-b border-gray-400 focus:outline-none focus:border-blue-500 mb-4"
-            />
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <img src="/petpals.png" alt="Logo" className="w-32 " />
+            <div className="flex flex-col w-full mb-4">
+              <label htmlFor="email" className="text-gray-700">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full p-2 border-b border-gray-400 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <div className="flex flex-col w-full mb-4">
+              <label htmlFor="password" className="text-gray-700">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="w-full p-2 border-b border-gray-400 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <button type="submit" style={{backgroundColor: '#007bff', color: '#fff',  border: 'none', borderRadius: '4px', padding: '8px 16px', cursor: 'pointer'}}>
               Login
             </button>
           </form>
