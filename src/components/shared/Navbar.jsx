@@ -21,7 +21,11 @@ export default function Navbar() {
     setShowSidebar(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/';
 
+  }
 
 
   // Function to get the token from localStorage
@@ -140,7 +144,7 @@ export default function Navbar() {
                     Settings
                   </Link>
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item onClick={handleLogout}>
                   <Link
                     to='/'
                     className="flex hover:bg-secondary-400 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"

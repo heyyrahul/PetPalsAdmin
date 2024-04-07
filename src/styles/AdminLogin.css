@@ -1,11 +1,11 @@
 #adminloginparent {
     display: flex;
     justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    align-items: start; /* Center vertically */
     height: 100vh; /* Full height of the viewport */
     background-image: url("../../public/adminloginback2.jpg");
     background-size: cover;
-    background-position: center;
+    background-position: unset;
     font-family: Arial, sans-serif;
     color: #333;
 

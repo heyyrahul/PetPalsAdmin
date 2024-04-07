@@ -45,7 +45,7 @@ const SideBar = ({ handleCloseSidebar }) => {
       </button>
         </CustomLink>
     
-        <CustomLink onClick={handleCloseSidebar} to="#">
+        <CustomLink onClick={handleLogout} to="#">
   <button className="flex items-center gap-2" onClick={ handleLogout} >
     <BiLogOut /> 
     <span style={{ color: "#31363F" }} >SignOut</span>
