@@ -64,7 +64,7 @@ const AddPets = () => {
     try {
       await axios.patch(`${URL}/pet/${selectedPet._id}`, selectedPet, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
+          Authorization: `Bearer ${localStorage.getItem('token')}` 
         }
       });
       fetchPets(); 
@@ -83,7 +83,7 @@ const AddPets = () => {
     try {
       await axios.delete(`${URL}/pet/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
+          Authorization: `Bearer ${localStorage.getItem('token')}` 
         }
       });
       const updatedPets = pets.filter((pet) => pet._id !== id);
@@ -165,11 +165,12 @@ const AddPets = () => {
             place="Search by pet name"
             value={searchTerm}
             onChange={handleSearchChange}
+       
           />
         </div>
-        <div>
+        <div >
           <select 
-            className="input_styles relative appearance-none focus:outline-none focus:border-blue-500 "
+            className="input_styles  appearance-none focus:outline-none focus:border-blue-500 "
             name="Type"
             id="Type"
             value={filterType}
@@ -182,7 +183,7 @@ const AddPets = () => {
         </div>
         <div >
           <select
-            className="input_styles relative appearance-none focus:outline-none focus:border-blue-500"
+            className="input_styles  appearance-none focus:outline-none focus:border-blue-500"
             name="Color"
             id="Color"
             value={filterColor}
@@ -204,7 +205,7 @@ const AddPets = () => {
         </div>
         <div>
           <select
-            className="input_styles relative appearance-none focus:outline-none focus:border-blue-500"
+            className="input_styles  appearance-none focus:outline-none focus:border-blue-500"
             name="AdoptionStatus"
             id="AdoptionStatus"
             value={adoptionStatus}

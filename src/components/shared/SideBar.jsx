@@ -23,7 +23,7 @@ const SideBar = ({ handleCloseSidebar }) => {
       </div>
       <div className="flex flex-col">
         <CustomLink onClick={handleCloseSidebar} to="/">
-          {" "}
+          {" "}   
           <button className="flex items-center gap-2" style={{color:"#31363F"}}>
             <RiLayoutGridFill className="text-xl" /> <span>Dashboard</span>
           </button>
@@ -45,10 +45,10 @@ const SideBar = ({ handleCloseSidebar }) => {
       </button>
         </CustomLink>
     
-        <CustomLink onClick={handleLogout} to="#">
+        <CustomLink onClick={handleLogout} to="/">
   <button className="flex items-center gap-2" onClick={ handleLogout} >
     <BiLogOut /> 
-    <span style={{ color: "#31363F" }} >SignOut</span>
+    <span style={{color:"#31363F"}} >SignOut</span>
    
   </button>
 </CustomLink>

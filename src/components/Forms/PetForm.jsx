@@ -53,7 +53,7 @@ const PetForm = () => {
             type="text"
             id="name"
             name="name"
-            placeholder="Name of pet"
+            place="Name of pet"
             value={formData.name}
             onChange={handleChange}
             className="input_styles"
@@ -106,7 +106,7 @@ const PetForm = () => {
             type="number"
             id="age"
             name="age"
-            placeholder="Age of pet"
+            place="Age of pet"
             value={formData.age}
             onChange={handleChange}
             className="input_styles"
@@ -120,7 +120,7 @@ const PetForm = () => {
             type="text"
             id="url"
             name="url"
-            placeholder="URL of pet image"
+            place="URL of pet image"
             value={formData.url}
             onChange={handleChange}
             className="input_styles"
@@ -168,7 +168,7 @@ const PetForm = () => {
             </label>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#A0153E", color: "white",borderRadius: "5px", width: "8%" }}>
+        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#A0153E", color: "white",borderRadius: "5px", width: "5rem" }}>
           Add Pet
         </button>
       </form>

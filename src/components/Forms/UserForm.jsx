@@ -47,7 +47,7 @@ const UserForm = () => {
             type="text"
             id="username"
             name="username"
-            placeholder="Username"
+            place="Username"
             value={formData.username}
             onChange={handleChange}
             className="input_styles"
@@ -61,7 +61,7 @@ const UserForm = () => {
             type="email"
             id="email"
             name="email"
-            placeholder="Email"
+            place="Email"
             value={formData.email}
             onChange={handleChange}
             className="input_styles"
@@ -75,7 +75,7 @@ const UserForm = () => {
             type="password"
             id="pass"
             name="pass"
-            placeholder="Password"
+            place="Password"
             value={formData.pass}
             onChange={handleChange}
             className="input_styles"
@@ -89,7 +89,7 @@ const UserForm = () => {
             type="number"
             id="age"
             name="age"
-            placeholder="Age"
+            place="Age"
             value={formData.age}
             onChange={handleChange}
             className="input_styles"
@@ -110,7 +110,7 @@ const UserForm = () => {
             <option value="admin">admin</option>
           </select>
         </div>
-        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#A0153E", color: "white",borderRadius: "5px", width: "8%"}}>
+        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#A0153E", color: "white",borderRadius: "5px", width: "5rem"}}>
           Register
         </button>
       </form>
