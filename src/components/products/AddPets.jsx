@@ -170,7 +170,7 @@ const AddPets = () => {
         </div>
         <div >
           <select 
-            className="input_styles  appearance-none focus:outline-none focus:border-blue-500 "
+            className="input_styles  appearance-none focus:ring focus:border-blue-500 "
             name="Type"
             id="Type"
             value={filterType}
@@ -183,7 +183,7 @@ const AddPets = () => {
         </div>
         <div >
           <select
-            className="input_styles  appearance-none focus:outline-none focus:border-blue-500"
+            className="input_styles  appearance-none focus:ring focus:border-blue-500"
             name="Color"
             id="Color"
             value={filterColor}
@@ -205,7 +205,7 @@ const AddPets = () => {
         </div>
         <div>
           <select
-            className="input_styles  appearance-none focus:outline-none focus:border-blue-500"
+            className="input_styles  appearance-none focus:ring focus:border-blue-500"
             name="AdoptionStatus"
             id="AdoptionStatus"
             value={adoptionStatus}

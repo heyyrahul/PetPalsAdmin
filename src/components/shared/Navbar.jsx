@@ -28,7 +28,6 @@ export default function Navbar() {
   }
 
 
-  // Function to get the token from localStorage
   const getToken = () => {
     return localStorage.getItem('token');
   };
@@ -104,7 +103,7 @@ export default function Navbar() {
             <Menu.Button className="inline-flex w-full justify-center items-center">
               <picture>
                 <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+                  src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Official_Photograph_of_Prime_Minister_Narendra_Modi_Portrait.png"
                   className="rounded-full h-8 md:mr-4 border-2 border-white shadow-custom"
                   alt="profile picture"
                 />

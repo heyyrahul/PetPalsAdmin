@@ -40,7 +40,7 @@ const UserOverview = () => {
                 });
                 const data = await response.json();
                 const applications = data.application;
-                const acceptedApplications = applications.filter(app => app.status === "Accepted");
+                const acceptedApplications = applications.filter(app => app.status === "Accept");
                 const totalFosters = new Set(acceptedApplications.map(app => app.userId)).size;
 
                 setTotalFosters(totalFosters);

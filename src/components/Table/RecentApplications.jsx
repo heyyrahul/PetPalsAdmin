@@ -13,10 +13,10 @@ const RecentApplications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const token = localStorage.getItem('token'); 
         const response = await axios.get(`${URL}/application`, {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass token in the Authorization header
+            Authorization: `Bearer ${token}`, 
           },
         });
         const filteredApplications = response.data.application.filter(app => app.status === 'Applied');
@@ -33,10 +33,10 @@ const RecentApplications = () => {
   const handleStatusChange = async (id, status) => {
     console.log('Clicked button:', id, status); 
     try {
-      const token = localStorage.getItem('token'); // Retrieve token from localStorage
+      const token = localStorage.getItem('token'); 
       const response = await axios.patch(`${URL}/application/update/${id}`, { status }, {
         headers: {
-          Authorization: `Bearer ${token}`, // Pass token in the Authorization header
+          Authorization: `Bearer ${token}`, 
         },
       });
       if (response.status === 200) {

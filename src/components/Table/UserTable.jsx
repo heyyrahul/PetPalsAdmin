@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import URL from "../../../API";
@@ -11,14 +10,18 @@ const UserTable = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedUser, setEditedUser] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [roleFilter, setRoleFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(10);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+        const token = localStorage.getItem('token');
         const response = await axios.get(`${URL}/users`, {
           headers: {
-            Authorization: `Bearer ${token}` // Include token in the headers
+            Authorization: `Bearer ${token}`
           }
         });
         setUsers(response.data.user);
@@ -29,32 +32,44 @@ const UserTable = () => {
     fetchUsers();
   }, []);
 
+  const filteredUsers = users.filter(user => {
+    return (
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    ) && (roleFilter === '' || user.role === roleFilter);
+  });
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   const handleDelete = (userId) => {
     setSelectedUserId(userId);
     setShowDeleteModal(true);
   };
 
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setSelectedUserId(null);
+  };
+  
   const confirmDelete = () => {
     axios.delete(`${URL}/users/${selectedUserId}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
       .then(() => {
         setShowDeleteModal(false);
         const updatedUsers = users.filter(user => user._id !== selectedUserId);
         setUsers(updatedUsers);
-        // Show toast notification
         toast.success("User has been deleted.");
       })
       .catch(error => {
         console.error('Error deleting user:', error);
       });
-  };
-
-  const cancelDelete = () => {
-    setShowDeleteModal(false);
-    setSelectedUserId(null);
   };
 
   const handleEdit = (userId) => {
@@ -68,65 +83,82 @@ const UserTable = () => {
     setEditedUser(null);
   };
 
- 
-const updateUser = () => {
-  axios.patch(`${URL}/users/${editedUser._id}`, editedUser, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}` // Include token in the headers
-    }
-  })
-    .then(() => {
-      // Update the user in the local state
-      const updatedUsers = users.map(user => {
-        if (user._id === editedUser._id) {
-          return editedUser;
-        }
-        return user;
-      });
-      setUsers(updatedUsers);
-      setShowEditModal(false);
-      setEditedUser(null);
-      toast.success("User details updated successfully.");
+  const updateUser = () => {
+    axios.patch(`${URL}/users/${editedUser._id}`, editedUser, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     })
-    .catch(error => {
-      console.error('Error updating user:', error);
-    });
-};
+      .then(() => {
+        const updatedUsers = users.map(user => {
+          if (user._id === editedUser._id) {
+            return editedUser;
+          }
+          return user;
+        });
+        setUsers(updatedUsers);
+        setShowEditModal(false);
+        setEditedUser(null);
+        toast.success("User details updated successfully.");
+      })
+      .catch(error => {
+        console.error('Error updating user:', error);
+      });
+  };
 
   return (
     <div>
       <ToastContainer />
       <div className="bg-white border-[1px] border-gray-200/80 rounded-[10px] shadow-custom">
         <div className="overflow-x-auto">
+          <div className="flex justify-start gap-4 px-4 py-2">
+            <input
+              type="text"
+              placeholder="Search by name or email"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="px-3 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            />
+            <select
+              value={roleFilter}
+              onChange={(e) => setRoleFilter(e.target.value)}
+              className="px-3 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            >
+              <option value="">Filter by role</option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+          </div>
           <div className="align-middle inline-block min-w-full">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
+                  {/* Table Header Rows */}
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                       S.no.
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                       Username
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                       Email
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                       Age
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                       Role
                     </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {users.map((user, index) => (
+                  {currentUsers.map((user, index) => (
                     <tr key={user._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{indexOfFirstUser + index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.username}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.age}</td>
@@ -188,6 +220,30 @@ const updateUser = () => {
           </div>
         </div>
       )}
+      {/* Pagination */}
+      <nav className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div className="hidden sm:block">
+          <p className="text-sm text-gray-700">
+            Showing {indexOfFirstUser + 1} to {Math.min(indexOfLastUser, filteredUsers.length)} of {filteredUsers.length} users
+          </p>
+        </div>
+        <div className="flex-1 flex justify-between sm:justify-end">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={indexOfLastUser >= filteredUsers.length}
+            className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+          >
+            Next
+          </button>
+        </div>
+      </nav>
     </div>
   );
 };
