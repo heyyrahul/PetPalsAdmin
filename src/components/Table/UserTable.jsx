@@ -167,7 +167,7 @@ const UserTable = () => {
                         <button onClick={() => handleEdit(user._id)} className="text-indigo-600 hover:text-indigo-900 mr-2" style={{backgroundColor:"gray",borderRadius:"5px",width:"4rem",height:"2rem"}}>
                           Edit
                         </button>
-                        <button onClick={() => handleDelete(user._id)} className="text-red-600 hover:text-red-900" style={{backgroundColor:"#FF5C5C",borderRadius:"5px",width:"4rem",height:"2rem"}}>
+                        <button onClick={() => handleDelete(user._id)} className="text-red-600 hover:text-red-900" style={{backgroundColor:"#D61A3C",borderRadius:"5px",width:"4rem",height:"2rem",color:"white"}}>
                           Delete
                         </button>
                       </td>

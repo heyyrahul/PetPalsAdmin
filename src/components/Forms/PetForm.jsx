@@ -168,7 +168,7 @@ const PetForm = () => {
             </label>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#A0153E", color: "white",borderRadius: "5px", width: "5rem" }}>
+        <button type="submit" className="btn btn-primary" style={{backgroundColor: "#D61A3C", color: "white",borderRadius: "5px", width: "5rem" }}>
           Add Pet
         </button>
       </form>

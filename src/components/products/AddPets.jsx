@@ -228,10 +228,10 @@ const AddPets = () => {
               <p className="text-gray-600 mb-2"><strong>Age:</strong> {pet.age}</p>
               <p className="text-gray-600 mb-2"><strong>Description:</strong> {pet.description}</p>
               <div className="flex justify-between">
-                <button onClick={() => handleEdit(pet)} className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded" style={{ backgroundColor: "#ACE2E1" }}>
+                <button onClick={() => handleEdit(pet)} className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded" style={{ backgroundColor: "grey" }}>
                   Edit
                 </button>
-                <button onClick={() => handleDelete(pet._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" style={{ backgroundColor: "#A0153E" }}>
+                <button onClick={() => handleDelete(pet._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" style={{ backgroundColor: "#D61A3C" }}>
                   Delete 
                 </button>
               </div>

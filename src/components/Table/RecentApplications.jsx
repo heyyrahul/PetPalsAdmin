@@ -152,7 +152,7 @@ const RecentApplications = () => {
                         {application.status === 'Applied' && (
                           <>
                             <button onClick={() => handleStatusChange(application._id, 'Accept')} className="text-black bg-green-500 px-4 py-1 rounded-md hover:bg-green-600" style={{backgroundColor: '#4CCD99'}}>Approve</button>
-                            <button onClick={() => handleStatusChange(application._id, 'Reject')} className="text-black bg-red-500 px-4 py-1 rounded-md hover:bg-red-600" style={{backgroundColor: '#FF5C5C'}}>Reject</button>
+                            <button onClick={() => handleStatusChange(application._id, 'Reject')} className="text-black bg-red-500 px-4 py-1 rounded-md hover:bg-red-600" style={{backgroundColor: '#D61A3C',color: 'white'}}>Reject</button>
                           </>
                         )}
                       </td>
